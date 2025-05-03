@@ -9,11 +9,6 @@ export const removeUnverifiedAccounts = () => {
             createdAt: { $lt: thirtyMinutesAgo },
         });
 
-        let count =1;
-        if(count > 0) {
-        console.log("Unverified accounts older than 30 minutes have been removed.");
-        count--;
-        } 
 
     })
 }
