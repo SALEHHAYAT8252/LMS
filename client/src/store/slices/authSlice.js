@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -12,133 +13,133 @@ const authSlice = createSlice({
   },
   reducers: {
     registerRequest(state) {
-      state.loding = true;
+      state.loading = true;
       state.error = null;
       state.message = null;
     },
     registerSuccess(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.message = action.payload.message;
     },
     registerFailed(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.error = action.payload;
     },
 
     otpVerificationRequest(state) {
-      state.loding = true;
+      state.loading = true;
       state.error = null;
       state.message = null;
     },
     otpVerificationSuccess(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.message = action.payload.message;
       state.isAuthenticated = true;
       state.user = action.payload.user;
     },
     otpVerificationFailed(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.error = action.payload;
     },
 
     loginRequest(state) {
-      state.loding = true;
+      state.loading = true;
       state.error = null;
       state.message = null;
     },
     loginSuccess(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.message = action.payload.message;
       state.isAuthenticated = true;
       state.user = action.payload.user;
     },
     loginFailed(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.error = action.payload;
     },
 
     logoutRequest(state) {
-      state.loding = true;
+      state.loading = true;
       state.message = null;
       state.error = null;
     },
     logoutSuccess(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.message = action.payload;
       state.isAuthenticated = false;
       state.user = null;
     },
     logoutFailed(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.error = action.payload;
       state.message = null;
     },
 
     getUserRequest(state) {
-      state.loding = true;
+      state.loading = true;
       state.error = null;
       state.message = null;
     },
     getUserSuccess(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.user = action.payload.user;
       state.isAuthenticated = true;
     },
     getUserFailed(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.user = null;
       state.isAuthenticated = false;
     },
 
     forgotPasswordRequest(state) {
-      state.loding = true;
+      state.loading = true;
       state.error = null;
       state.message = null;
     },
     forgotPasswordSuccess(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.message = action.payload.message;
     },
     forgotPasswordFailed(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.error = action.payload;
     },
 
     resetPasswordRequest(state) {
-      state.loding = true;
+      state.loading = true;
       state.error = null;
       state.message = null;
     },
     resetPasswordSuccess(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.message = action.payload.message;
       state.user = action.payload.user;
       state.isAuthenticated = true;
     },
     resetPasswordFailed(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.error = action.payload;
     },
 
     updatePasswordRequest(state) {
-      state.loding = true;
+      state.loading = true;
       state.error = null;
       state.message = null;
     },
     updatePasswordSuccess(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.message = action.payload;
     },
     updatePasswordFailed(state, action) {
-      state.loding = false;
+      state.loading = false;
       state.error = action.payload;
     },
 
     resetAuthSlice(state) {
-      state.loding = false;
-      state.user = state.user ? state.user : null;
       state.error = null;
+      state.loading = false;
       state.message = null;
+      state.user = state.user;
       state.isAuthenticated = state.isAuthenticated;
     },
   },
