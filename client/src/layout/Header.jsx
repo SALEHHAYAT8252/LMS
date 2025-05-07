@@ -13,7 +13,7 @@ const Header = () => {
 
   useEffect(() => {
     const updateDateTime = () => {
-      const date = new Date();
+      const now = new Date();
 
       const hours = now.getHours() % 12 || 12;
       const minutes = now.getMinutes().toString().padStart(2, "0");
@@ -47,7 +47,7 @@ const Header = () => {
               {user && user.name}
             </span>
             <span className="text-sm font-medium sm:text-lg sm:font-medium">
-              {user && user.rolle}
+              {user && user.role}
             </span>
           </div>
         </div>
@@ -58,9 +58,8 @@ const Header = () => {
             <span>{currentTime}</span>
             <span>{currentDate}</span>
           </div>
-          <span className="bg-black h-14 w-[2px]">
+          <span className="bg-black h-14 w-[2px]"/>
             <img src={settingIcon} alt="settingIcon" className="h-8 w-8" onClick={()=>toggleSettingPopup()} />
-          </span>
         </div>
       </header>
     </>

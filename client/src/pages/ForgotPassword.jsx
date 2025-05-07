@@ -20,10 +20,10 @@ const ForgotPassword = () => {
   };
 
   useEffect(() => {
-    // if (message) {
-    //   toast.success(message);
-    //   dispatch(resetAuthSlice());
-    // }
+    if (message) {
+      toast.success(message);
+      dispatch(resetAuthSlice());
+    }
     if (error) {
       toast.error(error);
       dispatch(resetAuthSlice());
@@ -80,6 +80,7 @@ const ForgotPassword = () => {
               <div className="mb-4">
                 <input
                   type="email"
+                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
@@ -88,7 +89,7 @@ const ForgotPassword = () => {
               </div>
 
               <button
-                type="submit"
+                type="submit" 
                 className="border-2 mt-5 border-black w-full font-semibold
               bg-black text-white py-2 rounded-lg hover:bg-white
               hover:text-black transition" disabled={loading ? true : false}
