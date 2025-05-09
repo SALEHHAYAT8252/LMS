@@ -14,7 +14,6 @@ const Login = () => {
 
   const { loading, error, message, user, isAuthenticated } =
     useSelector((state) => state.auth);
-
     const handleLogin = (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -24,10 +23,10 @@ const Login = () => {
   }
 
   useEffect(() => {
-      // if (message) {
-      //   toast.success(message);
-      //   dispatch(resetAuthSlice());
-      // }
+      if (message) {
+        toast.success(message);
+        dispatch(resetAuthSlice());
+      }
       if (error) {
         toast.error(error);
         dispatch(resetAuthSlice());

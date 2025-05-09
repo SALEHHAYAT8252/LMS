@@ -191,14 +191,14 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
       new ErrorHandler("Reset password token is invalid or expired", 400)
     );
   }
-  if (req.body.password !== req.body.confirmPassword) {
+  if (req.body.password !== req.body.confirmNewPassword) {
     return next(new ErrorHandler("Password does not match", 400));
   }
   if (
     req.body.password.length < 8 ||
     req.body.password.length > 16 ||
-    req.body.confirmPassword.length < 8 ||
-    req.body.confirmPassword.length > 16
+    req.body.confirmNewPassword.length < 8 ||
+    req.body.confirmNewPassword.length > 16
   ) {
     return next(
       new ErrorHandler("Password must be between 8 and 16 character ", 400)
@@ -214,8 +214,8 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 export const updatePassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.user._id).select("+password");
-  const { currentPassword, newPassword, confirmPassword } = req.body;
-  if (!currentPassword || !newPassword || !confirmPassword) {
+  const { currentPassword, newPassword, confirmNewPassword } = req.body;
+  if (!currentPassword || !newPassword || !confirmNewPassword) {
     return next(new ErrorHandler("Please enter all fields", 400));
   }
   const isPasswordMatched = await bcrypt.compare(
@@ -228,14 +228,14 @@ export const updatePassword = catchAsyncErrors(async (req, res, next) => {
   if (
     newPassword.length < 8 ||
     newPassword.length > 16 ||
-    confirmPassword.length < 8 ||
-    confirmPassword.length > 16
+    confirmNewPassword.length < 8 ||
+    confirmNewPassword.length > 16
   ) {
     return next(
       new ErrorHandler("Password must be between 8 and 16 character ", 400)
     );
   }
-  if (newPassword !== confirmPassword) {
+  if (newPassword !== confirmNewPassword) {
     return next(new ErrorHandler("Password does not match", 400));
   }
   const hashedPassword = await bcrypt.hash(newPassword, 10);

@@ -24,7 +24,7 @@ export const sendToken = (user, statusCode, message, res) => {
           token, // Send token in response (optional)
         });
     } catch (error) {
-      console.error("Error in sendToken:", error);
+      // console.error("Error in sendToken:", error);
       res.status(500).json({ success: false, message: "Internal Server Error" });
     }
   };

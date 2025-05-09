@@ -11,31 +11,33 @@ import { RiAdminFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, resetAuthSlice } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
-import { toggleAddNewAdminPopup, toggleSettingPopup } from "../store/slices/popUpSlice";
+import {
+  toggleAddNewAdminPopup,
+  toggleSettingPopup,
+} from "../store/slices/popUpSlice";
 import AddNewAdmin from "../popups/AddNewAdmin";
+import SettingPopup from "../popups/SettingPopup"
 
 const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
   const dispatch = useDispatch();
-  const { addNewAdminPopup } = useSelector((state) => state.popup);
+  const { addNewAdminPopup , settingPopup} = useSelector((state) => state.popup);
 
-  const { loading, error, message, user, isAuthenticated } = useSelector(
-    (state) => state.auth
-  );
+const { loading, error, message, user, isAuthenticated } =
+    useSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
   };
-
   useEffect(() => {
-    if (error) {
-      toast.error(error);
-      dispatch(resetAuthSlice());
-    }
     if (message) {
       toast.success(message);
       dispatch(resetAuthSlice());
     }
-  }, [dispatch, isAuthenticated, error, loading, message]);
+    if (error) {
+      toast.error(error);
+      dispatch(resetAuthSlice());
+    }
+  }, [dispatch, isAuthenticated, error, loading]);
   return (
     <>
       <aside
@@ -95,8 +97,8 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
                 <RiAdminFill className="w-6 h-6" />
                 <span>Add New Admin</span>
               </button>
-             </> 
-           )} 
+            </>
+          )}
           {isAuthenticated && user?.role === "User" && (
             <>
               <button
@@ -112,15 +114,17 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
           <button
             className="w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex
           items-center space-x-2"
-            onClick={() => dispatch(toggleSettingPopup)}
+            onClick={() => dispatch(toggleSettingPopup())}
           >
             <img src={settingIcon} alt="icon" />
             <span>Update Credential</span>
           </button>
         </nav>
         <div className="px-6 py-4">
-          <button className="py-2 font-medium text-center bg-transparent rounded-md hover:cursor-pointer flex items-center justify-center space-x-5 mx-auto w-fit"
-            onClick={handleLogout}>
+          <button
+            className="py-2 font-medium text-center bg-transparent rounded-md hover:cursor-pointer flex items-center justify-center space-x-5 mx-auto w-fit"
+            onClick={handleLogout}
+          >
             <img src={logoutIcon} alt="icon" />
             <span>Log Out</span>
           </button>
@@ -133,7 +137,8 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
           className="h-fit w-fit absolute top-0 right-4 mt-4 block md:hidden "
         />
       </aside>
-      {addNewAdminPopup && <AddNewAdmin />}
+     { addNewAdminPopup && <AddNewAdmin />}
+     {settingPopup && <SettingPopup />}
     </>
   );
 };

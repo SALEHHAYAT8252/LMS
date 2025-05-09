@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -65,7 +64,7 @@ const authSlice = createSlice({
     },
     logoutSuccess(state, action) {
       state.loading = false;
-      state.message = action.payload;
+      state.message = action.payload.message;
       state.isAuthenticated = false;
       state.user = null;
     },
@@ -213,7 +212,7 @@ export const logout = () => async (dispatch) => {
       withCredentials: true,
     })
     .then((res) => {
-      dispatch(authSlice.actions.logoutSuccess(res.data.message));
+      dispatch(authSlice.actions.logoutSuccess(res.data));
       dispatch(authSlice.actions.resetAuthSlice());
     })
     .catch((err) => {
@@ -278,22 +277,22 @@ export const resetPassword = (data, token) => async (dispatch) => {
 };
 
 export const updatePassword = (data) => async (dispatch) => {
-    dispatch(authSlice.actions.updatePasswordRequest());
-    await axios
-      .put(`http://localhost:4000/api/v1/auth/password/update`, data, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        dispatch(authSlice.actions.updatePasswordSuccess(res.data.message));
-      })
-      .catch((err) => {
-        dispatch(
-          authSlice.actions.updatePasswordFailed(err.response.data.message)
-        );
-      });
-  };
+  dispatch(authSlice.actions.updatePasswordRequest());
+  await axios
+    .put(`http://localhost:4000/api/v1/auth/password/update`, data, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      dispatch(authSlice.actions.updatePasswordSuccess(res.data.message));
+    })
+    .catch((err) => {
+      dispatch(
+        authSlice.actions.updatePasswordFailed(err.response.data.message)
+      );
+    });
+};
 
 export default authSlice.reducer;

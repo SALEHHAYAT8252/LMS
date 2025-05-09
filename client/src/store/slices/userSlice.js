@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { toggleAddNewAdminPopup } from "./popUpSlice";
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: [],
+    users: [],
     loading: false,
   },
   reducers: {
@@ -14,7 +15,7 @@ const userSlice = createSlice({
     },
     fetchAllUsersSuccess(state, action) {
       state.loading = false;
-      state.user = action.payload;
+      state.users = action.payload;
     },
     fetchAllUsersFailed(state) {
       state.loading = false;
@@ -35,9 +36,7 @@ const userSlice = createSlice({
 export const fetchAllUsers = () => async (dispatch) => {
   dispatch(userSlice.actions.fetchAllUsersRequest());
   await axios
-    .get("http://localhost:4000/api/v1/user/all", {
-      withCredentials: true,
-    })
+    .get("http://localhost:4000/api/v1/user/all", {withCredentials: true})
     .then((res) => {
       dispatch(userSlice.actions.fetchAllUsersSuccess(res.data.users));
     })
@@ -59,6 +58,7 @@ export const addNewAdmin = (data) => async (dispatch) => {
     .then((res) => {
       dispatch(userSlice.actions.addNewAdminSuccess());
         toast.success(res.data.message);
+        dispatch(toggleAddNewAdminPopup())
     })
     .catch((err) => {
       dispatch(userSlice.actions.addNewAdminFailed());

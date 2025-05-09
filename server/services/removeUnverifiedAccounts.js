@@ -5,7 +5,7 @@ export const removeUnverifiedAccounts = () => {
     cron.schedule("*/10 * * * * ", async () => {
         const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000); // 30 minutes ago
         await User.deleteMany({
-            isVerified: false,
+            accountVerified: false,
             createdAt: { $lt: thirtyMinutesAgo },
         });
 
