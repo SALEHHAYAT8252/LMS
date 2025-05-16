@@ -24,6 +24,8 @@ export const addBook = catchAsyncErrors(async (req, res, next) => {
   res.status(201).json({
     success: true,
     book,
+    message:"Book added Successfully",
+
   });
 });
 export const getAllBooks = catchAsyncErrors(async (req, res) => {

@@ -1,5 +1,5 @@
 export const calculateFine = (dueDate) => {
-    const finePerHour = .25; // Fine of ₹0.5 per hour
+    const finePerHour = .25; // Fine of ₹0.25 per hour
     const today = new Date(); // Get current date and time
     
     if(today > dueDate) {
