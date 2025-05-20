@@ -19,13 +19,13 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getUser());
-    // dispatch(fetchAllBooks());
     if (isAuthenticated && user?.role === "User") {
       dispatch(fetchUserBorrowedBooks());
     }
 
     if (isAuthenticated && user?.role === "Admin") {
+      dispatch(getUser());
+      dispatch(fetchAllBooks());
       dispatch(fetchAllUsers());
       dispatch(fetchAllBorrowedBooks());
     }
