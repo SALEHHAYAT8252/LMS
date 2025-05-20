@@ -18,7 +18,8 @@ config({ path: "./config/.env" });
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
+    // origin: [process.env.FRONTEND_URL],
+    origin:["https://lms-server-synr.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
