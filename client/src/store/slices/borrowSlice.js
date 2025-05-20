@@ -84,7 +84,7 @@ const borrowSlice = createSlice({
 export const fetchUserBorrowedBooks = () => async (dispatch) => {
   dispatch(borrowSlice.actions.fetchUserBorrowedBooksRequest());
   await axios
-    .get("https://lms-server-u5dw.onrender.com/api/v1/borrow/my-borrowed-books", {
+    .get("https://lms-hr29.onrender.com/api/v1/borrow/my-borrowed-books", {
       withCredentials: true,
     })
     .then((res) => {
@@ -106,7 +106,7 @@ export const fetchUserBorrowedBooks = () => async (dispatch) => {
 export const fetchAllBorrowedBooks = () => async (dispatch) => {
   dispatch(borrowSlice.actions.fetchAllBorrowedBooksRequest());
   await axios
-    .get("https://lms-server-u5dw.onrender.com/api/v1/borrow/borrowed-books-by-users", {
+    .get("https://lms-hr29.onrender.com/api/v1/borrow/borrowed-books-by-users", {
       withCredentials: true,
     })
     .then((res) => {
@@ -127,7 +127,7 @@ export const recordBorrowBook = (email, id) => async (dispatch) => {
   dispatch(borrowSlice.actions.recordBookRequest());
   await axios
     .post(
-      `https://lms-server-u5dw.onrender.com/api/v1/borrow/record-borrow-book/${id}`,
+      `https://lms-hr29.onrender.com/api/v1/borrow/record-borrow-book/${id}`,
       { email },
       {
         withCredentials: true,
@@ -151,7 +151,7 @@ export const returnBook = (email, id) => async (dispatch) => {
   console.log(email,id);
   dispatch(borrowSlice.actions.returnBookRequest());
   await axios.put(
-    `https://lms-server-u5dw.onrender.com/api/v1/borrow/return-borrowed-book/${id}`,
+    `https://lms-hr29.onrender.com/api/v1/borrow/return-borrowed-book/${id}`,
     { email },
     {
       withCredentials: true,

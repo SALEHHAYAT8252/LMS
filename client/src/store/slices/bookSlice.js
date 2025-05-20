@@ -51,7 +51,7 @@ const bookSlice = createSlice({
 export const fetchAllBooks = () => async (dispatch) => {
   dispatch(bookSlice.actions.fetchBooksRequest());
   await axios
-    .get("https://lms-server-u5dw.onrender.com/api/v1/book/all", { withCredentials: true })
+    .get("https://lms-hr29.onrender.com/api/v1/book/all", { withCredentials: true })
     .then((res) => {
       dispatch(bookSlice.actions.fetchBooksSuccess(res.data.books));
     })
@@ -62,7 +62,7 @@ export const fetchAllBooks = () => async (dispatch) => {
 
 export const addBook = (data) => async (dispatch) => {
   dispatch(bookSlice.actions.addBookRequest());
-  await axios.post("https://lms-server-u5dw.onrender.com/api/v1/book/admin/add", data, {
+  await axios.post("https://lms-hr29.onrender.com/api/v1/book/admin/add", data, {
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",

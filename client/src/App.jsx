@@ -22,7 +22,7 @@ const App = () => {
     dispatch(getUser());
     dispatch(fetchAllBooks());
     if (isAuthenticated && user?.role === "User") {
-      dispatch(fetchUserBorrowedBooks());
+      dispatch(fetchUserBorrowedBooks()); 
     }
 
     if (isAuthenticated && user?.role === "Admin") {
