@@ -39,7 +39,7 @@ const AdminDashboard = () => {
 
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalAdmin, setTotalAdmin] = useState(0);
-  const [totalBooks, setTotalBooks] = useState((books && books.length) || 0);
+  // const [totalBooks, setTotalBooks] = useState((books && books.length) || 0);
   const [totalBorrowedBooks, setTotalBorrowedBooks] = useState(0);
   const [totalReturnedBooks, setTotalReturnedBooks] = useState(0);
 
@@ -47,8 +47,8 @@ const AdminDashboard = () => {
     let numberOfUsers = users.filter((user) => user.role === "User");
     let numberOfAdmins = users.filter((user) => user.role === "Admin");
     let numberOfBooks = books.length;
-    setTotalBooks(numberOfBooks);
-    setTotalUsers(numberOfUsers.length);
+    // setTotalBooks(numberOfBooks);
+    // setTotalUsers(numberOfUsers.length);
     setTotalAdmin(numberOfAdmins.length);
 
     let numberOfTotalBorrowedBooks = allBorrowedBooks.filter(
@@ -127,7 +127,7 @@ const AdminDashboard = () => {
                   <span className="w-[2px] bg-black h-20 lg:h-full"></span>
                   <div className="flex flex-col items-center gap-2">
                     <h4 className="font-black text-3xl">
-                      {totalBooks}
+                      {books.length||0}
                     </h4>
                     <p className="font-light text-gray-700 text-sm">Total Book Count</p>
                   </div>
