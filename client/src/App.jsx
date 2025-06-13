@@ -20,7 +20,7 @@ const App = () => {
 
   useEffect(() => {
     // dispatch(getUser());
-    // dispatch(fetchAllBooks());
+    dispatch(fetchAllBooks());
     if (isAuthenticated && user?.role === "User") {
       dispatch(fetchUserBorrowedBooks()); 
     }
