@@ -1,21 +1,13 @@
 import { useEffect, useState } from "react";
 
 const WelcomeScreen = ()=> {
-  const [show, setShow] = useState(true);
+ useEffect(() => {
+  const timeout = setTimeout(() => {
+    setShow(false);
+  }, 3000); // Show welcome screen for 3 seconds
 
-  useEffect(() => {
-    const visited = localStorage.getItem("visited");
-    if (visited) {
-      setShow(false);
-    } else {
-      localStorage.setItem("visited", "true");
-      setTimeout(() => {
-        setShow(false);
-      }, 3000);
-    }
-  }, []);
-
-  if (!show) return null;
+  return () => clearTimeout(timeout); // Clean up timeout when component unmounts
+}, []);
 
   return (
     <div className="fixed top-0 left-0 h-screen w-screen bg-gradient-to-br from-blue-800 to-blue-500 flex flex-col items-center justify-center text-white z-50 animate-fade-in transition-all duration-700 ease-in-out">
