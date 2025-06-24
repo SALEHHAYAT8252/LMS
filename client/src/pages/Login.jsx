@@ -39,7 +39,7 @@ const Login = () => {
   return <>
     <div className="min-h-screen flex">
         {/* Left Section (Login Form) */}
-        <div className="flex-1 bg-gradient-to-br from-gray-100 to-white flex items-center justify-center min-h-150">
+        <div className="flex-1 bg-gradient-to-br from-gray-100 to-white flex items-center justify-center p-3 min-h-150">
           <div className="bg-white/80 backdrop-blur-xl shadow-2xl rounded-xl p-10 w-full max-w-md">
             <div className="flex flex-col items-center">
               {/* 3D Logo (replace with actual 3D image path) */}
