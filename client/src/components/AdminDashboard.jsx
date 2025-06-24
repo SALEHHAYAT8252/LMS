@@ -46,9 +46,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     let numberOfUsers = users.filter((user) => user.role === "User");
     let numberOfAdmins = users.filter((user) => user.role === "Admin");
-    let numberOfBooks = books.length;
+    // let numberOfBooks = books.length;
     // setTotalBooks(numberOfBooks);
-    // setTotalUsers(numberOfUsers.length);
+    setTotalUsers(numberOfUsers.length);
     setTotalAdmin(numberOfAdmins.length);
 
     let numberOfTotalBorrowedBooks = allBorrowedBooks.filter(
