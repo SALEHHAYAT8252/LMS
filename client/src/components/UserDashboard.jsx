@@ -121,7 +121,7 @@ const UserDashboard = () => {
             <div className="bg-white text-lg sm:text-xl xl:text-3xl 2xl:text-4xl min-h-35 mb-5 font-semibold relative flex-[3] flex justify-center items-center rounded-2xl">
               <h4 className="overflow-y-hidden">""</h4>
               <p className="text-gray-700 text-sm sm:text-lg absolute right-[35px] sm:right-[78px] bottom-[10px]">
-                ~STACK ZYX TEAM
+                ~SALEH HAYAT
               </p>
             </div>
           </div>
