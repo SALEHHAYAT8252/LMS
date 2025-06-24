@@ -75,11 +75,11 @@ const AdminDashboard = () => {
   };
   return (
     <>
-     <main className="relative flex-1 pt-23">
+      <main className="relative flex-1 pt-23">
         <Header />
         <div className="flex flex-col-reverse xl:flex-row">
           {/* Left Side */}
-          <div className="flex-[2] flex-col gap-7 lg:flex-row flex lg:items-center xl:flex-col justify-between xl:gap-20" >
+          <div className="flex-[2] flex-col gap-7 lg:flex-row flex lg:items-center xl:flex-col justify-between xl:gap-20">
             <div className="xl:flex-[4] flex items-end w-full content-center ">
               <Pie
                 data={data}
@@ -91,11 +91,7 @@ const AdminDashboard = () => {
               className="flex items-center p-8 w-full sm:w-[400px] xl:w-fit mr-5 xl:p-3 2xl:p-6 gap-5 h-fit
             xl:min-h-[140px] bg-white xl:flex-1 rounded-lg"
             >
-              <img
-                src={logo}
-                alt="logo"
-                className="w-auto xl:flex-1 rounded-lg"
-              />
+              <img src={logo} alt="logo" className="w-auto h-10 2xl:h-17 " />
               <span className="w-[2px] bg-black h-full"></span>
               <div className="flex flex-col gap-3">
                 <p className="flex items-center gap-3 ">
@@ -132,7 +128,7 @@ const AdminDashboard = () => {
                   </span>
                   <span className="w-[2px] bg-black h-20 lg:h-full"></span>
                   <div className="flex flex-col items-center gap-2">
-                    <h4 className="font-black text-3xl">{books.length||0}</h4>
+                    <h4 className="font-black text-3xl">{books.length || 0}</h4>
                     <p className="font-light text-gray-700 text-sm">
                       Total Book Count
                     </p>
