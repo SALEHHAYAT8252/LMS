@@ -82,6 +82,7 @@ const Register = () => {
                   src={logo}
                   alt="Logo"
                   className="h-auto w-24 object-cover"
+                  style={{height:"200px",width:"200px"}}
                 />
               </div>
             </div>
