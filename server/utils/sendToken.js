@@ -6,22 +6,23 @@ export const sendToken = (user, statusCode, message, res) => {
     //   console.log(token);
 
       // 2. Set cookie options
-    //   console.log(process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000); test COOKIE_EXPIRE
       const cookieOptions = {
         expires: new Date(
           Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
+          secure: true,
+          sameSite: "None",
       };
 
       // 3. Send response with cookie and JSON data
       res.status(statusCode)
-        .cookie("token", token, cookieOptions) // Fixed: "token" instead of sendToken
+        .cookie("token", token, cookieOptions) 
         .json({
           success: true,
           user,
           message,
-          token, // Send token in response (optional)
+          token,
         });
     } catch (error) {
       // console.error("Error in sendToken:", error);
