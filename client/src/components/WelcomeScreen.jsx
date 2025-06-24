@@ -40,7 +40,7 @@ const WelcomeScreen = ()=> {
 
       {/* Subheading */}
       <p className="text-lg sm:text-xl mt-2 font-medium text-center">
-        MPS Library Management System
+        ByteBooks Library Management System
       </p>
     </div>
   );
