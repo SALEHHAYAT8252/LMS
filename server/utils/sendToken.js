@@ -2,7 +2,7 @@ export const sendToken = (user, statusCode, message, res) => {
     // console.log("I am in send token");
     try {
       // 1. Generate JWT token (ensure user.generateToken() is defined in User model)
-      const token = user.generateToken(); // Fixed: user.getJwtToken() instead of user.generateToken()
+      const token = user.generateToken(); 
     //   console.log(token);
 
       // 2. Set cookie options
