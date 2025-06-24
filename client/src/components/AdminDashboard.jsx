@@ -15,7 +15,7 @@ import {
   PointElement,
   ArcElement,
 } from "chart.js";
-import logo from "../assets/black-logo.png";
+import logo from "../assets/black-logo.svg";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "../layout/Header";
 ChartJS.register(
