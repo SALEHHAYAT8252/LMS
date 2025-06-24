@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import logo from "../assets/black-logo.png";
-import logo_with_title from "../assets/logo-with-title.png";
+import logo from "../assets/logo-with-title-black.svg";
+import logo_with_title from "../assets/logo-with-title.svg";
 import { forgotPassword, resetAuthSlice } from "../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";

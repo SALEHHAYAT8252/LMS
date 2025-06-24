@@ -1,0 +1,25 @@
+<svg width="180" height="180" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bbGradient" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6EE7B7"></stop>
+      <stop offset="1" stop-color="#3B82F6"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Open Book Shape -->
+  <path d="M30 50C30 40 50 35 70 45L100 60L130 45C150 35 170 40 170 50V140C170 150 150 155 130 145L100 130L70 145C50 155 30 150 30 140V50Z" fill="url(#bbGradient)" stroke="#ffffff" stroke-width="2"></path>
+
+  <!-- Pixels / Digital Dots -->
+  <circle cx="50" cy="30" r="5" fill="#6EE7B7"></circle>
+  <circle cx="65" cy="20" r="3" fill="#3B82F6"></circle>
+  <circle cx="80" cy="30" r="4" fill="#6EE7B7"></circle>
+  <circle cx="60" cy="10" r="2" fill="#3B82F6"></circle>
+
+  <!-- Text -->
+  <text x="100" y="180" text-anchor="middle" fill="#111827" font-size="18" font-family="Verdana, sans-serif">
+    ByteBooks
+  </text>
+  <text x="100" y="195" text-anchor="middle" fill="#111827" font-size="12" font-family="Verdana, sans-serif">
+    LIBRARY
+  </text>
+</svg>
