@@ -57,6 +57,7 @@ const ResetPassword = () => {
                 src={logo_with_title}
                 alt="logo"
                 className="mb-12 h-44 w-auto"
+                style={{height:"200px",width:"200px"}}
               />
             </div>
             <h3 className="text-gray-300 mb-12 max-w-[320px] mx-auto text-3xl font-medium leading-10">
