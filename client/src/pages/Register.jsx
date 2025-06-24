@@ -55,6 +55,7 @@ const Register = () => {
                 src={logo_with_title}
                 alt="Logo"
                 className="mb-12 h-44 w-auto"
+                style={{height:"200px",width:"200px"}}
               />
             </div>
             <p className="text-gray-300 mb-12">
