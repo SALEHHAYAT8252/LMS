@@ -48,7 +48,7 @@ const { loading, error, message, user, isAuthenticated } =
         style={{ position: "fixed" }}
       >
         <div className="px-6 py-4 my-8">
-          <img src={logo_with_title} alt="logo" />
+          <img src={logo_with_title} alt="logo" style={{width:"200px"}}/>
         </div>
 
         <nav className="flex-1 px-6 space-y-2">
