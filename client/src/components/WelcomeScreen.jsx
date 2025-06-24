@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 const WelcomeScreen = ()=> {
+  const [show, setShow] = useState(true);
+
  useEffect(() => {
   const timeout = setTimeout(() => {
     setShow(false);
@@ -8,6 +10,8 @@ const WelcomeScreen = ()=> {
 
   return () => clearTimeout(timeout); // Clean up timeout when component unmounts
 }, []);
+
+  if (!show) return null;
 
   return (
     <div className="fixed top-0 left-0 h-screen w-screen bg-gradient-to-br from-blue-800 to-blue-500 flex flex-col items-center justify-center text-white z-50 animate-fade-in transition-all duration-700 ease-in-out">
