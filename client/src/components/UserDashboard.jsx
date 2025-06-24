@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo_with_title from "../assets/logo-with-title-black.png";
+import logo_with_title from "../assets/logo-with-title-black.svg";
 import returnIcon from "../assets/redo.png";
 import browseIcon from "../assets/pointing.png";
 import bookIcon from "../assets/book-square.png";
@@ -16,7 +16,7 @@ import {
   PointElement,
   ArcElement,
 } from "chart.js";
-import logo from "../assets/black-logo.png";
+import logo from "../assets/black-logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 ChartJS.register(
   CategoryScale,

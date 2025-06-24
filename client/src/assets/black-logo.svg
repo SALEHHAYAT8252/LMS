@@ -1,0 +1,25 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bbGradientLight" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3B82F6"></stop>
+      <stop offset="1" stop-color="#06B6D4"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Book -->
+  <path d="M30 50C30 40 50 35 70 45L100 60L130 45C150 35 170 40 170 50V140C170 150 150 155 130 145L100 130L70 145C50 155 30 150 30 140V50Z" fill="url(#bbGradientLight)" stroke="#000" stroke-width="2"></path>
+
+  <!-- Pixels -->
+  <circle cx="50" cy="30" r="5" fill="#3B82F6"></circle>
+  <circle cx="65" cy="20" r="3" fill="#06B6D4"></circle>
+  <circle cx="80" cy="30" r="4" fill="#3B82F6"></circle>
+  <circle cx="60" cy="10" r="2" fill="#06B6D4"></circle>
+
+  <!-- ByteBooks (as path, pre-converted for compatibility) -->
+  <path transform="translate(25,180) scale(0.07)" fill="#111827" d="M...Z"></path>
+  <!-- Replace “M...Z” with actual path of ByteBooks text -->
+
+  <!-- LIBRARY (as path) -->
+  <path transform="translate(70,205) scale(0.06)" fill="#6B7280" d="M...Z"></path>
+  <!-- Replace “M...Z” with actual path of LIBRARY text -->
+</svg>
