@@ -37,60 +37,7 @@ const Login = () => {
       return <Navigate to="/" />;
     }
   return <>
-    <div className="flex flex-col justify-center md:flex-row h-screen">
-        {/* Left Side */}
-        <div className="w-full md:w-1/2 flex items-center justify-center bg-white p-8 relative  min-h-150">
-          <div className="max-w-sm w-full">
-            <div className="flex justify-center mb-12">
-              <div className="rounded-full flex items-center justify-center">
-                <img src={logo} alt="Logo" className="h-24 w-auto" style={{height:"200px", width:"200px"}} />
-              </div>
-            </div>
-            <h1 className="text-4xl font-medium text-center mb-12 overflow-hidden">
-              Welcome Back
-            </h1>
-            <p className="text-gray-800 text-center mb-12">
-              Please Enter your credentials to login
-            </p>
-            <form onSubmit={handleLogin}>
-              <div className="mb-4">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                  className="w-full px-4 py-3 border border-black rounded-md focus:outline-none"
-                />
-              </div>
-
-              <div className="mb-4">
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  className="w-full px-4 py-3 border border-black rounded-md focus:outline-none"
-                />
-              </div>
-              <Link to={"/password/forgot"} className="font-semibold text-black mb-12 ">
-              Forgot Password?
-              </Link>
-              <div className="block md:hidden font-semibold mt-5">
-                <p>New to our platform? <Link to={"/register"} className="text-sm text-gray-500 hover:underline">Sign Up</Link></p>
-              </div>
-              <button
-                type="submit"
-                className="border-2 mt-5 border-black w-full font-semibold
-              bg-black text-white py-2 rounded-lg hover:bg-white
-              hover:text-black transition"
-              >
-               SIGN IN
-              </button>
-            </form>
-          </div>
-        </div>
-        {/* Right Side */}
-          <div className="min-h-screen flex">
+    <div className="min-h-screen flex">
         {/* Left Section (Login Form) */}
         <div className="flex-1 bg-gradient-to-br from-gray-100 to-white flex items-center justify-center p-10  min-h-150">
           <div className="bg-white/80 backdrop-blur-xl shadow-2xl rounded-xl p-10 w-full max-w-md">
@@ -191,7 +138,6 @@ const Login = () => {
             </Link>
           </div>
         </div>
-      </div>
       </div>
   </>;
 };
