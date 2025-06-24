@@ -13,7 +13,7 @@ import { getUser } from "./store/slices/authSlice";
 import { fetchAllUsers } from "./store/slices/userSlice";
 import { fetchAllBooks } from "./store/slices/bookSlice";
 import { fetchAllBorrowedBooks, fetchUserBorrowedBooks } from "./store/slices/borrowSlice";
-
+import WelcomeScreen from "./components/WelcomeScreen"
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -31,7 +31,10 @@ const App = () => {
     }
   }, [isAuthenticated]);
   return (
-    <Router>
+    <>
+    <WelcomeScreen />
+
+     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -42,6 +45,7 @@ const App = () => {
       </Routes>
       <ToastContainer theme="dark" />
     </Router>
+    </>
   );
 };
 
