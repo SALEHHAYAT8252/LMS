@@ -88,7 +88,7 @@ const UserDashboard = () => {
                 >
                   <span className="w-[2px] bg-black h-20 lg:h-full"></span>
                   <span className="bg-gray-300 h-20 lg:h-full min-w-20 flex justify-center items-center rounded-lg">
-                    <img src={returnIcon} alt="Book-Icon" className="w-8 h-8" />
+                    <img src={returnIcon} alt="Book-Icon" className="w-8 h-8" style={{width:"150px"}}/>
                   </span>
                   <p className="text-lg xl:text-xl font-semibold">
                     Your Returned Book List
