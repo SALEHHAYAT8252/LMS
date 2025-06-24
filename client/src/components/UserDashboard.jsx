@@ -62,13 +62,13 @@ const UserDashboard = () => {
   };
   return (
     <>
-      <main className="relative flex-1 p-6 pt-28">
+       <main className="relative flex-1 pt-18">
         <Header />
         <div className="flex flex-col-reverse xl:flex-row">
           {/* Left Side */}
-          <div className="flex flex-[4] flex-col gap-7 lg:gap-7 lg:py-5 justify-between xl:min-h-[85.5vh]">
+          <div className="flex flex-[4] flex-col gap-3 lg:gap-3  justify-between xl:min-h-[90dvh] pt-5">
             <div className="flex flex-col gap-7 flex-[4]">
-              <div className="flex flex-col lg:flex-col gap-7 overflow-hidden">
+              <div className="flex flex-col lg:flex-col gap-3 overflow-hidden">
                 <div
                   className="flex items-center gap-3 bg-white p-5 min-h-[100px] overflow-y-hidden
                 rounded-lg transition hover:shadow-inner duration-300"
@@ -96,7 +96,7 @@ const UserDashboard = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col lg:flex-row gap-7">
+              <div className="flex flex-col lg:flex-row gap-3">
                 <div
                   className="flex items-center gap-3 bg-white p-5 max-h-[100px] overflow-y-hidden
                 rounded-lg transition hover:shadow-inner duration-300"
@@ -117,7 +117,7 @@ const UserDashboard = () => {
               </div>
             </div>
 
-            <div className="bg-white p-7 text-lg sm:text-xl xl:text-3xl 2xl:text-4xl min-h-52 font-semibold relative flex-[3] flex justify-center items-center rounded-2xl">
+            <div className="bg-white text-lg sm:text-xl xl:text-3xl 2xl:text-4xl min-h-35 mb-5 font-semibold relative flex-[3] flex justify-center items-center rounded-2xl">
               <h4 className="overflow-y-hidden">""</h4>
               <p className="text-gray-700 text-sm sm:text-lg absolute right-[35px] sm:right-[78px] bottom-[10px]">
                 ~STACK ZYX TEAM
@@ -126,7 +126,7 @@ const UserDashboard = () => {
           </div>
 
           {/* Right Side */}
-          <div className="flex-[2] flex-col gap-7 lg:flex-row flex lg:items-center xl:flex-col justify-between xl:gap-20 py-5">
+          <div className="flex-[2] flex-col gap-7 lg:flex-row flex lg:items-center xl:flex-col justify-between xl:gap-5 pt-5 ">
 
           <div className="xl:flex-[4] flex items-end w-full content-center">
             <Pie
@@ -135,8 +135,8 @@ const UserDashboard = () => {
               className="mx-auto lg:mx-0 w-full h-auto"
             />
           </div>
-          <div className="flex items-center p-8 w-full sm:w-[400px] xl:w-fit mr-5 xl:p-3 2xl:p-6 gap-5 h-fit xl:min-h-[150px] bg-white xl:flex-1 rounded-lg ">
-            <img src={logo} alt="logo"  className="w-auto h-12 2xl:h-20 "/>
+          <div className="flex items-center  w-full sm:w-[400px] xl:w-fit mr-5 xl:p-3 2xl:p-6 gap-5 h-fit xl:min-h-[100px] bg-white xl:flex-1 rounded-lg mb-5">
+            <img src={logo} alt="logo"  className="w-auto h-10 2xl:h-17 "/>
             <span className="w-[2px] bg-black h-full "></span>
             <div className="flex flex-col gap-5">
               <p className="flex items-center gap-3 ">
