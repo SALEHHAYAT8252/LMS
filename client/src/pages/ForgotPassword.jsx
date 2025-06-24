@@ -68,7 +68,7 @@ const ForgotPassword = () => {
           <div className="w-full max-w-sm">
             <div className="flex justify-center mb-12">
               <div className="rounded-full flex items-center justify-center">
-                <img src={logo} alt="Logo" className="h-24 w-auto" />
+                <img src={logo} alt="Logo" className="h-24 w-auto" style={{height:"200px",width:"200px"}}/>
               </div>
             </div>
             <h1 className="text-4xl font-medium text-center mb-5 overflow-hidden ">
