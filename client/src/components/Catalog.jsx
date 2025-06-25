@@ -75,6 +75,11 @@ const Catalog = () => {
     }
   }, [dispatch, error, loading]);
 
+   const { books } = useSelector((state) => state.book);
+  const bookTitle = (id) => {
+    return books.find((book) => book._id === id).title;
+  };
+
   return (
     <>
       <main className="relative flex-1 p-6 pt-28">
@@ -111,7 +116,7 @@ const Catalog = () => {
                   <th className="px-4 py-2 text-left">ID</th>
                   <th className="px-4 py-2 text-left">Username</th>
                   <th className="px-4 py-2 text-left">Email</th>
-                  <th className="px-4 py-2 text-left">Price</th>
+                  <th className="px-4 py-2 text-left">Book</th>
                   <th className="px-4 py-2 text-left">Due Date</th>
                   <th className="px-4 py-2 text-left">Date & Time</th>
                   <th className="px-4 py-2 text-left">Return</th>
@@ -126,7 +131,7 @@ const Catalog = () => {
                     <td className="px-4 py-2 ">{index + 1}</td>
                     <td className="px-4 py-2 ">{book?.user.name}</td>
                     <td className="px-4 py-2 ">{book?.user.email}</td>
-                    <td className="px-4 py-2 ">{book.price}</td>
+                    <td className="px-4 py-2 ">{bookTitle(book.book) }</td>
                     <td className="px-4 py-2 ">{formatDate(book.dueDate)}</td>
                     <td className="px-4 py-2 ">
                       {formatDateAndTime(book.createdAt)}
