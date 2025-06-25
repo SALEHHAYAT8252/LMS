@@ -51,7 +51,14 @@ const Catalog = () => {
     return dueDate <= currentDate;
   });
 
-  const booksToDisplay = filter === "borrowed" ? borrowedBooks : overDueBooks;
+  // const booksToDisplay = filter === "borrowed" ? borrowedBooks : overDueBooks;
+
+   const [searchedKeyword, setSearchedKeyword] = useState("");
+     const handleSearch = (e) => {
+    setSearchedKeyword(e.target.value.toLowerCase());
+  };
+
+  const booksToDisplay = filter === "borrowed" ? borrowedBooks.filter((book)=>(book?.user.email.toLowerCase().includes(searchedKeyword))) : overDueBooks.filter((book)=>(book?.user.email.toLowerCase().includes(searchedKeyword)));
 
   const [email, setEmail] = useState("");
   const [borrowedBookId, setBorrowedBookId] = useState("");
@@ -106,6 +113,13 @@ const Catalog = () => {
           >
             Overdue Borrowers
           </button>
+          <input
+              type="text"
+              placeholder="Serch User..."
+              className="w-full sm:w-52 border p-2 border-gray-300 rounded-md"
+              value={searchedKeyword}
+              onChange={handleSearch}
+            />
         </header>
 
         {booksToDisplay && booksToDisplay.length > 0 ? (
