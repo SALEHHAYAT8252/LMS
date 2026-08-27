@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
+
+const getErrorMessage = (err) =>
+  err.response?.data?.message || err.message || "An unexpected error occurred.";
 
 const authSlice = createSlice({
   name: "auth",
@@ -150,26 +154,24 @@ export const resetAuthSlice = () => async (dispatch) => {
 
 export const register = (data) => async (dispatch) => {
   dispatch(authSlice.actions.registerRequest());
-  await axios
-    .post("https://lms-hr29.onrender.com/api/v1/auth/register", data, {
+  try {
+    const res = await axios.post(`${API_BASE_URL}/api/v1/auth/register`, data, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
       },
-    })
-    .then((res) => {
-      dispatch(authSlice.actions.registerSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(authSlice.actions.registerFailed(err.response.data.message));
     });
+    dispatch(authSlice.actions.registerSuccess(res.data));
+  } catch (err) {
+    dispatch(authSlice.actions.registerFailed(getErrorMessage(err)));
+  }
 };
 
 export const otpVerification = (email, otp) => async (dispatch) => {
   dispatch(authSlice.actions.otpVerificationRequest());
-  await axios
-    .post(
-      "https://lms-hr29.onrender.com/api/v1/auth/verify-otp",
+  try {
+    const res = await axios.post(
+      `${API_BASE_URL}/api/v1/auth/verify-otp`,
       { email, otp },
       {
         withCredentials: true,
@@ -177,68 +179,58 @@ export const otpVerification = (email, otp) => async (dispatch) => {
           "Content-Type": "application/json",
         },
       }
-    )
-    .then((res) => {
-      dispatch(authSlice.actions.otpVerificationSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(
-        authSlice.actions.otpVerificationFailed(err.response.data.message)
-      );
-    });
+    );
+    dispatch(authSlice.actions.otpVerificationSuccess(res.data));
+  } catch (err) {
+    dispatch(authSlice.actions.otpVerificationFailed(getErrorMessage(err)));
+  }
 };
 
 export const login = (data) => async (dispatch) => {
   dispatch(authSlice.actions.loginRequest());
-  await axios
-    .post("https://lms-hr29.onrender.com/api/v1/auth/login", data, {
+  try {
+    const res = await axios.post(`${API_BASE_URL}/api/v1/auth/login`, data, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
       },
-    })
-    .then((res) => {
-      dispatch(authSlice.actions.loginSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(authSlice.actions.loginFailed(err.response.data.message));
     });
+    dispatch(authSlice.actions.loginSuccess(res.data));
+  } catch (err) {
+    dispatch(authSlice.actions.loginFailed(getErrorMessage(err)));
+  }
 };
 
 export const logout = () => async (dispatch) => {
   dispatch(authSlice.actions.logoutRequest());
-  await axios
-    .get("https://lms-hr29.onrender.com/api/v1/auth/logout", {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/api/v1/auth/logout`, {
       withCredentials: true,
-    })
-    .then((res) => {
-      dispatch(authSlice.actions.logoutSuccess(res.data));
-      dispatch(authSlice.actions.resetAuthSlice());
-    })
-    .catch((err) => {
-      dispatch(authSlice.actions.logoutFailed(err.response.data.message));
     });
+    dispatch(authSlice.actions.logoutSuccess(res.data));
+    dispatch(authSlice.actions.resetAuthSlice());
+  } catch (err) {
+    dispatch(authSlice.actions.logoutFailed(getErrorMessage(err)));
+  }
 };
 
 export const getUser = () => async (dispatch) => {
   dispatch(authSlice.actions.getUserRequest());
-  await axios
-    .get("https://lms-hr29.onrender.com/api/v1/auth/me", {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/api/v1/auth/me`, {
       withCredentials: true,
-    })
-    .then((res) => {
-      dispatch(authSlice.actions.getUserSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(authSlice.actions.getUserFailed(err.response.data.message));
     });
+    dispatch(authSlice.actions.getUserSuccess(res.data));
+  } catch (err) {
+    dispatch(authSlice.actions.getUserFailed(getErrorMessage(err)));
+  }
 };
 
 export const forgotPassword = (email) => async (dispatch) => {
   dispatch(authSlice.actions.forgotPasswordRequest());
-  await axios
-    .post(
-      "https://lms-hr29.onrender.com/api/v1/auth/password/forgot",
+  try {
+    const res = await axios.post(
+      `${API_BASE_URL}/api/v1/auth/password/forgot`,
       { email },
       {
         withCredentials: true,
@@ -246,53 +238,49 @@ export const forgotPassword = (email) => async (dispatch) => {
           "Content-Type": "application/json",
         },
       }
-    )
-    .then((res) => {
-      dispatch(authSlice.actions.forgotPasswordSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(
-        authSlice.actions.forgotPasswordFailed(err.response.data.message)
-      );
-    });
+    );
+    dispatch(authSlice.actions.forgotPasswordSuccess(res.data));
+  } catch (err) {
+    dispatch(authSlice.actions.forgotPasswordFailed(getErrorMessage(err)));
+  }
 };
 
 export const resetPassword = (data, token) => async (dispatch) => {
   dispatch(authSlice.actions.resetPasswordRequest());
-  await axios
-    .put(`https://lms-hr29.onrender.com/api/v1/auth/password/reset/${token}`, data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((res) => {
-      dispatch(authSlice.actions.resetPasswordSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(
-        authSlice.actions.resetPasswordFailed(err.response.data.message)
-      );
-    });
+  try {
+    const res = await axios.put(
+      `${API_BASE_URL}/api/v1/auth/password/reset/${token}`,
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    dispatch(authSlice.actions.resetPasswordSuccess(res.data));
+  } catch (err) {
+    dispatch(authSlice.actions.resetPasswordFailed(getErrorMessage(err)));
+  }
 };
 
 export const updatePassword = (data) => async (dispatch) => {
   dispatch(authSlice.actions.updatePasswordRequest());
-  await axios
-    .put(`https://lms-hr29.onrender.com/api/v1/auth/password/update`, data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((res) => {
-      dispatch(authSlice.actions.updatePasswordSuccess(res.data.message));
-    })
-    .catch((err) => {
-      dispatch(
-        authSlice.actions.updatePasswordFailed(err.response.data.message)
-      );
-    });
+  try {
+    const res = await axios.put(
+      `${API_BASE_URL}/api/v1/auth/password/update`,
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    dispatch(authSlice.actions.updatePasswordSuccess(res.data.message));
+  } catch (err) {
+    dispatch(authSlice.actions.updatePasswordFailed(getErrorMessage(err)));
+  }
 };
 
 export default authSlice.reducer;

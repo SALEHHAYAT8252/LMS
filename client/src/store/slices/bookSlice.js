@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toggleAddBookPopup } from "./popUpSlice";
-import { toast } from "react-toastify";
+import { API_BASE_URL } from "../../config";
+
+const getErrorMessage = (err) =>
+  err.response?.data?.message || err.message || "An unexpected error occurred.";
+
 const bookSlice = createSlice({
   name: "book",
   initialState: {
@@ -50,35 +54,35 @@ const bookSlice = createSlice({
 
 export const fetchAllBooks = () => async (dispatch) => {
   dispatch(bookSlice.actions.fetchBooksRequest());
-  await axios
-    .get("https://lms-hr29.onrender.com/api/v1/book/all", { withCredentials: true })
-    .then((res) => {
-      dispatch(bookSlice.actions.fetchBooksSuccess(res.data.books));
-    })
-    .catch((err) => {
-      dispatch(bookSlice.actions.fetchBooksFailed(err.response.data.message));
+  try {
+    const res = await axios.get(`${API_BASE_URL}/api/v1/book/all`, {
+      withCredentials: true,
     });
+    dispatch(bookSlice.actions.fetchBooksSuccess(res.data.books));
+  } catch (err) {
+    dispatch(bookSlice.actions.fetchBooksFailed(getErrorMessage(err)));
+  }
 };
 
 export const addBook = (data) => async (dispatch) => {
   dispatch(bookSlice.actions.addBookRequest());
-  await axios.post("https://lms-hr29.onrender.com/api/v1/book/admin/add", data, {
-    withCredentials: true,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then(res=>{
+  try {
+    const res = await axios.post(`${API_BASE_URL}/api/v1/book/admin/add`, data, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     dispatch(bookSlice.actions.addBookSuccess(res.data.message));
     dispatch(toggleAddBookPopup());
     dispatch(fetchAllBooks());
-  })
-  .catch(err=>{
-    dispatch(bookSlice.actions.addBookFailed(err.response.data.message))
-  });
+  } catch (err) {
+    dispatch(bookSlice.actions.addBookFailed(getErrorMessage(err)));
+  }
 };
 
-export const  resetBookSlice = ()=>(dispatch)=>{
+export const resetBookSlice = () => (dispatch) => {
   dispatch(bookSlice.actions.resetBookSlice());
-}
+};
 
 export default bookSlice.reducer;

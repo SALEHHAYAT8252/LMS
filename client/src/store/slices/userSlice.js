@@ -2,68 +2,79 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { toggleAddNewAdminPopup } from "./popUpSlice";
+import { API_BASE_URL } from "../../config";
+
+const getErrorMessage = (err) =>
+  err.response?.data?.message || err.message || "An unexpected error occurred.";
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     users: [],
     loading: false,
+    error: null,
   },
   reducers: {
     fetchAllUsersRequest(state) {
       state.loading = true;
+      state.error = null;
     },
     fetchAllUsersSuccess(state, action) {
       state.loading = false;
       state.users = action.payload;
     },
-    fetchAllUsersFailed(state) {
+    fetchAllUsersFailed(state, action) {
       state.loading = false;
+      state.error = action.payload;
     },
 
     addNewAdminRequest(state) {
       state.loading = true;
+      state.error = null;
     },
     addNewAdminSuccess(state) {
       state.loading = false;
     },
-    addNewAdminFailed(state) {
+    addNewAdminFailed(state, action) {
       state.loading = false;
+      state.error = action.payload;
     },
   },
 });
 
 export const fetchAllUsers = () => async (dispatch) => {
   dispatch(userSlice.actions.fetchAllUsersRequest());
-  await axios
-    .get("https://lms-hr29.onrender.com/api/v1/user/all", {withCredentials: true})
-    .then((res) => {
-      dispatch(userSlice.actions.fetchAllUsersSuccess(res.data.users));
-    })
-    .catch((err) => {
-      dispatch(userSlice.actions.fetchAllUsersFailed(err.response.data.message));
+  try {
+    const res = await axios.get(`${API_BASE_URL}/api/v1/user/all`, {
+      withCredentials: true,
     });
+    dispatch(userSlice.actions.fetchAllUsersSuccess(res.data.users));
+  } catch (err) {
+    dispatch(userSlice.actions.fetchAllUsersFailed(getErrorMessage(err)));
+  }
 };
-
 
 export const addNewAdmin = (data) => async (dispatch) => {
   dispatch(userSlice.actions.addNewAdminRequest());
-  await axios
-    .post("https://lms-hr29.onrender.com/api/v1/user/add/new-admin", data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then((res) => {
-      dispatch(userSlice.actions.addNewAdminSuccess());
-        toast.success(res.data.message);
-        dispatch(toggleAddNewAdminPopup())
-    })
-    .catch((err) => {
-      dispatch(userSlice.actions.addNewAdminFailed());
-      toast.error(err.response.data.message);
-    });
-}
+  try {
+    const res = await axios.post(
+      `${API_BASE_URL}/api/v1/user/add/new-admin`,
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    dispatch(userSlice.actions.addNewAdminSuccess());
+    toast.success(res.data.message);
+    dispatch(toggleAddNewAdminPopup());
+  } catch (err) {
+    const errorMsg = getErrorMessage(err);
+    dispatch(userSlice.actions.addNewAdminFailed(errorMsg));
+    toast.error(errorMsg);
+  }
+};
 
 export default userSlice.reducer;

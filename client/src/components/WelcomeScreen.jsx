@@ -1,49 +1,48 @@
 import { useEffect, useState } from "react";
+import { BookOpen } from "lucide-react";
 
-const WelcomeScreen = ()=> {
+const WelcomeScreen = () => {
   const [show, setShow] = useState(true);
 
- useEffect(() => {
-  const timeout = setTimeout(() => {
-    setShow(false);
-  }, 3000); // Show welcome screen for 3 seconds
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShow(false);
+    }, 2400);
 
-  return () => clearTimeout(timeout); // Clean up timeout when component unmounts
-}, []);
+    return () => clearTimeout(timeout);
+  }, []);
 
   if (!show) return null;
 
   return (
-    <div className="fixed top-0 left-0 h-screen w-screen bg-gradient-to-br from-blue-800 to-blue-500 flex flex-col items-center justify-center text-white z-50 animate-fade-in transition-all duration-700 ease-in-out">
-      {/* Icon or logo */}
-      <div className="mb-6">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-20 h-20 text-white animate-pulse"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M12 6V4m0 0L4 8v12l8-4 8 4V8l-8-4zm0 0v2m0 0v2"
-          />
-        </svg>
+    <div className="fixed inset-0 h-screen w-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex flex-col items-center justify-center text-white z-50 animate-fade-in transition-all duration-700 ease-in-out">
+      {/* Glowing icon badge */}
+      <div className="relative mb-6">
+        <div className="absolute inset-0 rounded-2xl bg-blue-500/20 blur-xl animate-pulse" />
+        <div className="relative p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
+          <BookOpen className="w-12 h-12 text-blue-400" />
+        </div>
       </div>
 
       {/* Main Heading */}
-      <h1 className="text-3xl sm:text-4xl font-extrabold tracking-wide text-center animate-scale-up">
-        Welcome to
-      </h1>
+      <div className="text-center px-4">
+        <span className="text-xs uppercase font-bold tracking-widest text-blue-400 mb-1 block">
+          Welcome to
+        </span>
+        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white animate-scale-up">
+          ByteBooks
+        </h1>
+        <p className="text-sm sm:text-base text-slate-300 mt-2 font-medium">
+          Modern Library Management System
+        </p>
+      </div>
 
-      {/* Subheading */}
-      <p className="text-lg sm:text-xl mt-2 font-medium text-center">
-        ByteBooks Library Management System
-      </p>
+      {/* Progress pill */}
+      <div className="mt-8 w-36 h-1 bg-slate-800 rounded-full overflow-hidden">
+        <div className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full animate-pulse" />
+      </div>
     </div>
   );
-}
+};
 
 export default WelcomeScreen;

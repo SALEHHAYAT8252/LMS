@@ -12,28 +12,32 @@ import Users from "../components/Users";
 
 const Home = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-  const [selectedComponent, setSelectedComponent] = useState("");
+  const [selectedComponent, setSelectedComponent] = useState("Dashboard");
 
   const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
-  return (
-    <>
-      <div className="relative md:pl-64 flex flex-col min-h-screen bg-gray-100">
-        <div className="md:hidden z-10 absolute right-6 top-4 sm:top-6 flex  justify-center items-center bg-black rounded-md h-9 w-9 text-white">
-          <GiHamburgerMenu
-            className="text-2xl"
-            onClick={() => setIsSideBarOpen(!isSideBarOpen)}
-          />
-        </div>
-        <SideBar
-          isSideBarOpen={isSideBarOpen}
-          setIsSideBarOpen={setIsSideBarOpen}
-          setSelectedComponent={setSelectedComponent}
-        />
 
+  return (
+    <div className="relative md:pl-64 flex flex-col min-h-screen bg-slate-50 text-slate-800">
+      {/* Mobile Hamburger Menu Toggle */}
+      <div className="md:hidden z-20 absolute right-4 top-3.5 flex justify-center items-center bg-slate-900 shadow-md rounded-xl h-9 w-9 text-white hover:bg-slate-800 transition cursor-pointer">
+        <GiHamburgerMenu
+          className="text-lg"
+          onClick={() => setIsSideBarOpen(!isSideBarOpen)}
+        />
+      </div>
+
+      <SideBar
+        isSideBarOpen={isSideBarOpen}
+        setIsSideBarOpen={setIsSideBarOpen}
+        setSelectedComponent={setSelectedComponent}
+        selectedComponent={selectedComponent}
+      />
+
+      <div className="flex-1 w-full max-w-7xl mx-auto">
         {(() => {
           switch (selectedComponent) {
             case "Dashboard":
@@ -42,37 +46,30 @@ const Home = () => {
               ) : (
                 <AdminDashboard />
               );
-              break;
             case "Books":
               return <BookManagement />;
-              break;
-
             case "Catlog":
-              if (user.role === "Admin") {
+              if (user?.role === "Admin") {
                 return <Catlog />;
               }
-              break;
-
+              return <UserDashboard />;
             case "Users":
-              if (user.role === "Admin") {
+              if (user?.role === "Admin") {
                 return <Users />;
               }
-              break;
-
+              return <UserDashboard />;
             case "My Borrowed Books":
               return <MyBorrowedBooks />;
-              break;
             default:
               return user?.role === "User" ? (
                 <UserDashboard />
               ) : (
                 <AdminDashboard />
               );
-              break;
           }
         })()}
       </div>
-    </>
+    </div>
   );
 };
 

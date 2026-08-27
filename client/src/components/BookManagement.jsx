@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BookA, NotebookPen } from "lucide-react";
+import { BookOpen, NotebookPen, Plus, Search, CheckCircle2, XCircle } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleAddBookPopup,
@@ -29,14 +29,12 @@ const BookManagement = () => {
   const {
     loading: borrowSliceLoading,
     error: borrowSliceError,
-    userBorrowedBooks,
-    allBorrowedBooks,
     message: borrowSliceMessage,
   } = useSelector((state) => state.borrow);
 
   const [readBook, setReadBook] = useState({});
   const openReadPopup = (id) => {
-    const book = books.find((book) => book._id === id);
+    const book = books?.find((b) => b._id === id);
     setReadBook(book);
     dispatch(toggleReadBookPopup());
   };
@@ -75,95 +73,147 @@ const BookManagement = () => {
   const handleSearch = (e) => {
     setSearchedKeyword(e.target.value.toLowerCase());
   };
-  const searchedBooks = books.filter((book) => ( book.title.toLowerCase().includes(searchedKeyword))
+
+  const searchedBooks = (books || []).filter((book) =>
+    book.title?.toLowerCase().includes(searchedKeyword) ||
+    book.author?.toLowerCase().includes(searchedKeyword)
   );
+
   return (
     <>
-      <main className="relative flex-1 p-6 pt-28">
+      <main className="relative flex-1 p-6 pt-24 max-w-7xl mx-auto">
         <Header />
-        {/* Sub Header */}
-        <header className="flex flex-col gap-3 md:flex-row md:justify-between md:items-center ">
-          <h2 className="text-xl font-medium md:text-2xl md:font-semibold">
-            {user && user.role === "Admin" ? "Book Management" : "Books"}
-          </h2>
-          <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
+
+        {/* Sub Header & Actions */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+              {user?.role === "Admin" ? "Book Management" : "Library Catalog"}
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Browse, search, and manage book records in the repository.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            {/* Search Input */}
+            <div className="relative">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search by title or author..."
+                className="w-full sm:w-64 pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all shadow-2xs"
+                value={searchedKeyword}
+                onChange={handleSearch}
+              />
+            </div>
+
+            {/* Add Book Button (Admin only) */}
             {isAuthenticated && user?.role === "Admin" && (
               <button
                 onClick={() => dispatch(toggleAddBookPopup())}
-                className="relative pl-14 w-full sm:w-52 flex gap-4 justify-center items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-all shadow-xs hover:shadow cursor-pointer"
               >
-                <span className="bg-white flex justify-center items-center overflow-hidden rounded-full text-black w-[25px] h-[25px] text-[27px] absolute left-5">
-                  +
-                </span>
-                Add Book
+                <Plus className="w-4 h-4" />
+                <span>Add Book</span>
               </button>
             )}
-            <input
-              type="text"
-              placeholder="Serch books..."
-              className="w-full sm:w-52 border p-2 border-gray-300 rounded-md"
-              value={searchedKeyword}
-              onChange={handleSearch}
-            />
           </div>
-        </header>
+        </div>
 
-        {/* Table */}
+        {/* Enterprise Data Table */}
         {books && books.length > 0 ? (
-          <div className="mt-6 overflow-auto bg-white rounded-md shadow-lg">
-            <table className="min-w-full border-collapse">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="px-4 py-2 text-left">ID</th>
-                  <th className="px-4 py-2 text-left">NAME</th>
-                  <th className="px-4 py-2 text-left">AUTHOR</th>
-                  {isAuthenticated && user?.role === "Admin" && (
-                    <th className="px-4 py-2 text-left">QUANTITY</th>
-                  )}
-                  <th className="px-4 py-2 text-left">Price</th>
-                  <th className="px-4 py-2 text-left">Availability</th>
-                  {isAuthenticated && user?.role === "Admin" && (
-                    <th className="px-4 py-2 text-center">Record Book</th>
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {searchedBooks.map((book, index) => (
-                  <tr
-                    key={book._id}
-                    className={(index + 1) % 2 === 0 ? "bg-gray-50" : ""}
-                  >
-                    <td className="px-4 py-2">{index + 1}</td>
-                    <td className="px-4 py-2">{book.title}</td>
-                    <td className="px-4 py-2">{book.author}</td>
+          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-slate-50/80 border-b border-slate-200/80 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    <th className="py-3.5 px-4">#</th>
+                    <th className="py-3.5 px-4">Title</th>
+                    <th className="py-3.5 px-4">Author</th>
                     {isAuthenticated && user?.role === "Admin" && (
-                      <td className="px-4 py-2">{book.quantity}</td>
+                      <th className="py-3.5 px-4 text-center">Quantity</th>
                     )}
-                    <td className="px-4 py-2">{`₹${book.price}`}</td>
-                    <td className="px-4 py-2">
-                      {book.availability ? "Available" : "Unavailable"}
-                    </td>
+                    <th className="py-3.5 px-4">Borrow Price</th>
+                    <th className="py-3.5 px-4">Status</th>
                     {isAuthenticated && user?.role === "Admin" && (
-                      <td className="px-4 py-2 flex space-x-2 my-3 justify-center">
-                        <BookA className="hover:cursor-pointer" onClick={() => openReadPopup(book._id)} />
-                        <NotebookPen className="hover:cursor-pointer"
-                          onClick={() => {
-                            openRecordBookPopup(book._id);
-                          }}
-                        />
-                      </td>
+                      <th className="py-3.5 px-4 text-center">Actions</th>
                     )}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
+                  {searchedBooks.map((book, index) => (
+                    <tr
+                      key={book._id || index}
+                      className="hover:bg-slate-50/60 transition-colors duration-150"
+                    >
+                      <td className="py-3.5 px-4 font-mono text-xs text-slate-400">
+                        {String(index + 1).padStart(2, "0")}
+                      </td>
+                      <td className="py-3.5 px-4 font-semibold text-slate-900">
+                        {book.title}
+                      </td>
+                      <td className="py-3.5 px-4 text-slate-600">
+                        {book.author}
+                      </td>
+                      {isAuthenticated && user?.role === "Admin" && (
+                        <td className="py-3.5 px-4 text-center font-medium">
+                          <span className="px-2.5 py-0.5 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">
+                            {book.quantity}
+                          </span>
+                        </td>
+                      )}
+                      <td className="py-3.5 px-4 font-medium text-slate-800">
+                        ₹{book.price}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        {book.availability ? (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                            <CheckCircle2 className="w-3 h-3" /> Available
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-50 text-rose-700 border border-rose-200/60">
+                            <XCircle className="w-3 h-3" /> Unavailable
+                          </span>
+                        )}
+                      </td>
+                      {isAuthenticated && user?.role === "Admin" && (
+                        <td className="py-3.5 px-4">
+                          <div className="flex items-center justify-center gap-2">
+                            <button
+                              onClick={() => openReadPopup(book._id)}
+                              title="View Details"
+                              className="p-1.5 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition cursor-pointer"
+                            >
+                              <BookOpen className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => openRecordBookPopup(book._id)}
+                              title="Record Borrow"
+                              className="p-1.5 rounded-lg text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition cursor-pointer"
+                            >
+                              <NotebookPen className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         ) : (
-          <h3 className="text-3xl mt-5 font-medium">
-            No Books Found in Library
-          </h3>
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-12 text-center shadow-xs">
+            <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+            <h3 className="text-lg font-bold text-slate-800">No Books Found</h3>
+            <p className="text-xs text-slate-500 mt-1">
+              There are currently no books in the library inventory.
+            </p>
+          </div>
         )}
       </main>
+
       {addBookPopup && <AddBookPopup />}
       {readBookPopup && <ReadBookPopup book={readBook} />}
       {recordBookPopup && <RecordBookPopup bookId={borrowBookId} />}

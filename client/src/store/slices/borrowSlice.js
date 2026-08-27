@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { toggleRecordBookPopup } from "./popUpSlice";
+import { API_BASE_URL } from "../../config";
+
+const getErrorMessage = (err) =>
+  err.response?.data?.message || err.message || "An unexpected error occurred.";
 
 const borrowSlice = createSlice({
   name: "borrow",
@@ -37,7 +41,7 @@ const borrowSlice = createSlice({
       state.loading = false;
       state.message = action.payload;
     },
-    recordBookFailed() {
+    recordBookFailed(state, action) {
       state.loading = false;
       state.error = action.payload;
       state.message = null;
@@ -67,7 +71,7 @@ const borrowSlice = createSlice({
       state.loading = false;
       state.message = action.payload;
     },
-    returnBookFailed() {
+    returnBookFailed(state, action) {
       state.loading = false;
       state.error = action.payload;
       state.message = null;
@@ -83,51 +87,50 @@ const borrowSlice = createSlice({
 
 export const fetchUserBorrowedBooks = () => async (dispatch) => {
   dispatch(borrowSlice.actions.fetchUserBorrowedBooksRequest());
-  await axios
-    .get("https://lms-hr29.onrender.com/api/v1/borrow/my-borrowed-books", {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/api/v1/borrow/my-borrowed-books`, {
       withCredentials: true,
-    })
-    .then((res) => {
-      dispatch(
-        borrowSlice.actions.fetchUserBorrowedBooksSuccess(
-          res.data.borrowedBooks
-        )
-      );
-    })
-    .catch((err) => {
-      dispatch(
-        borrowSlice.actions.fetchAllBorrowedBooksFailed(
-          err.response.data.message
-        )
-      );
     });
+    dispatch(
+      borrowSlice.actions.fetchUserBorrowedBooksSuccess(
+        res.data.borrowedBooks
+      )
+    );
+  } catch (err) {
+    dispatch(
+      borrowSlice.actions.fetchUserBorrowedBooksFailed(
+        getErrorMessage(err)
+      )
+    );
+  }
 };
 
 export const fetchAllBorrowedBooks = () => async (dispatch) => {
   dispatch(borrowSlice.actions.fetchAllBorrowedBooksRequest());
-  await axios
-    .get("https://lms-hr29.onrender.com/api/v1/borrow/borrowed-books-by-users", {
-      withCredentials: true,
-    })
-    .then((res) => {
-      dispatch(
-        borrowSlice.actions.fetchAllBorrowedBooksSuccess(res.data.borrowedBooks)
-      );
-    })
-    .catch((err) => {
-      dispatch(
-        borrowSlice.actions.fetchUserBorrowedBooksFailed(
-          err.response.data.message
-        )
-      );
-    });
+  try {
+    const res = await axios.get(
+      `${API_BASE_URL}/api/v1/borrow/borrowed-books-by-users`,
+      {
+        withCredentials: true,
+      }
+    );
+    dispatch(
+      borrowSlice.actions.fetchAllBorrowedBooksSuccess(res.data.borrowedBooks)
+    );
+  } catch (err) {
+    dispatch(
+      borrowSlice.actions.fetchAllBorrowedBooksFailed(
+        getErrorMessage(err)
+      )
+    );
+  }
 };
 
 export const recordBorrowBook = (email, id) => async (dispatch) => {
   dispatch(borrowSlice.actions.recordBookRequest());
-  await axios
-    .post(
-      `https://lms-hr29.onrender.com/api/v1/borrow/record-borrow-book/${id}`,
+  try {
+    const res = await axios.post(
+      `${API_BASE_URL}/api/v1/borrow/record-borrow-book/${id}`,
       { email },
       {
         withCredentials: true,
@@ -135,40 +138,39 @@ export const recordBorrowBook = (email, id) => async (dispatch) => {
           "Content-Type": "application/json",
         },
       }
-    )
-    .then((res) => {
-      dispatch(borrowSlice.actions.recordBookSuccess(res.data.message));
-      toast.success(res.data.message);
-      dispatch(toggleRecordBookPopup())
-    })
-    .catch((err) => {
-      borrowSlice.actions.recordBookFailed(err.response.data.message);
-      toast.error(err.response.data.message);
-    });
+    );
+    dispatch(borrowSlice.actions.recordBookSuccess(res.data.message));
+    toast.success(res.data.message);
+    dispatch(toggleRecordBookPopup());
+  } catch (err) {
+    const errorMsg = getErrorMessage(err);
+    dispatch(borrowSlice.actions.recordBookFailed(errorMsg));
+    toast.error(errorMsg);
+  }
 };
 
 export const returnBook = (email, id) => async (dispatch) => {
-  console.log(email,id);
   dispatch(borrowSlice.actions.returnBookRequest());
-  await axios.put(
-    `https://lms-hr29.onrender.com/api/v1/borrow/return-borrowed-book/${id}`,
-    { email },
-    {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  ).then(res=>{
-    dispatch(borrowSlice.actions.recordBookSuccess(res.data.message));
-  }).catch(err=>{
-    dispatch(borrowSlice.actions.returnBookFailed(err.response.data.message));
-  });
+  try {
+    const res = await axios.put(
+      `${API_BASE_URL}/api/v1/borrow/return-borrowed-book/${id}`,
+      { email },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    dispatch(borrowSlice.actions.returnBookSuccess(res.data.message));
+  } catch (err) {
+    const errorMsg = getErrorMessage(err);
+    dispatch(borrowSlice.actions.returnBookFailed(errorMsg));
+  }
 };
 
-
-export const resetBorrowSlice = ()=>(dispatch)=>{
+export const resetBorrowSlice = () => (dispatch) => {
   dispatch(borrowSlice.actions.resetBorrowSlice());
-}
+};
 
 export default borrowSlice.reducer;

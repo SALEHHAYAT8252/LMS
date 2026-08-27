@@ -12,7 +12,7 @@ export const errorMiddleware = (err,req, res, next) => {
     const statusCode = 400;
     const message = `Dublicate Field value Entered`;
     err = new ErrorHandler(message, statusCode);
-  }
+  } 
 
   if (err.name === "JsonWebTokenError") {
     const statusCode = 400;

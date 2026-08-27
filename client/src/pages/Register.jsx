@@ -1,148 +1,183 @@
 import React, { useEffect, useState } from "react";
-import logo from "../assets/logo-with-title-black.svg";
-import logo_with_title from "../assets/logo-with-title.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { register, resetAuthSlice } from "../store/slices/authSlice";
-import { toast } from "react-toastify";
-const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+ import { Link, useNavigate, Navigate } from "react-router-dom";
+ import { register, resetAuthSlice } from "../store/slices/authSlice";
+ import { toast } from "react-toastify";
+ import { User, Mail, Lock, ArrowRight, BookOpen } from "lucide-react";
 
-  const dispatch = useDispatch();
+ const Register = () => {
+   const [name, setName] = useState("");
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
 
-  const { loading, error, message, user, isAuthenticated } =
-    useSelector((state) => state.auth);
+   const dispatch = useDispatch();
 
-  const navigateTo = useNavigate();
+   const { loading, error, message, isAuthenticated } = useSelector(
+     (state) => state.auth
+   );
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    data.append("name", name);
-    data.append("email", email);
-    data.append("password", password);
-    dispatch(register(data));
-  };
+   const navigateTo = useNavigate();
 
-  useEffect(() => {
-    if (message) {
-      toast.success(message);
-      dispatch(resetAuthSlice());
-      navigateTo(`/otp-verification/${email}`);
-    }
-    if (error) {
-      toast.error(error);
-      dispatch(resetAuthSlice());
-    }
-  }, [error, isAuthenticated, dispatch,loading]);
+   const handleRegister = (e) => {
+     e.preventDefault();
+     const data = new FormData();
+     data.append("name", name);
+     data.append("email", email);
+     data.append("password", password);
+     dispatch(register(data));
+   };
 
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
-  return (
-    <>
-      <div className="flex flex-col justify-center md:flex-row h-screen ">
-        {/* Left Side */}
-        <div
-          className="hidden w-full md:w-1/2 bg-black text-white md:flex flex-row
-      items-center justify-center p-8 rounded-tr-[80px] rounded-br-[80px]"
-        >
-          <div className="text-center h-[376px] ">
-            <div className="flex justify-center mb-12">
-              <img
-                src={logo_with_title}
-                alt="Logo"
-                className="mb-12 h-44 w-auto"
-                style={{height:"200px",width:"200px"}}
-              />
-            </div>
-            <p className="text-gray-300 mb-12">
-              Already have Account? Sign in now.{" "}
-            </p>
-            <Link
-              to="/login"
-              className="border-2 rounded-lg font-semibold border-white py-2 px-8 hover:bg-white hover:text-black transition"
-            >
-              Sign In
-            </Link>
-          </div>
-        </div>
+   useEffect(() => {
+     if (message) {
+       toast.success(message);
+       dispatch(resetAuthSlice());
+       navigateTo(`/otp-verification/${email}`);
+     }
+     if (error) {
+       toast.error(error);
+       dispatch(resetAuthSlice());
+     }
+   }, [error, isAuthenticated, dispatch, loading, message, email, navigateTo]);
 
-        {/* Right Side */}
-        <div className="w-full md:w-1/2 flex items-center justify-center bg-white p-8">
-          <div className="w-full max-w-sm">
-            <div className="flex justify-center mb-12">
-              <div className="flex flex-col-reverse sm:flex-row items-center justify-center gap-5">
-                <h3 className="font-medium text-4xl overflow-hidden">
-                  Sign Up
-                </h3>
-                <img
-                  src={logo}
-                  alt="Logo"
-                  className="h-auto w-24 object-cover"
-                  style={{height:"200px",width:"200px"}}
-                />
-              </div>
-            </div>
+   if (isAuthenticated) {
+     return <Navigate to="/" />;
+   }
 
-            <p className="text-gray-800 text-center mb-12">
-              Please provide your information to sign up.
-            </p>
-            <form onSubmit={handleRegister}>
-              <div className="mb-2">
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Full Name"
-                  className="w-full px-4 py-3 border border-black rounded-md focus:outline-none"
-                />
-              </div>
+   return (
+     <div className="min-h-screen flex bg-slate-50">
+       {/* Left Section (Brand Showcase) */}
+       <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white flex-col items-center justify-center p-12 relative overflow-hidden">
+         {/* Glow effects */}
+         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
-              <div className="mb-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                  className="w-full px-4 py-3 border border-black rounded-md focus:outline-none"
-                />
-              </div>
+         <div className="w-full max-w-md p-10 text-center rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 shadow-2xl relative z-10">
+           <div className="w-16 h-16 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center mx-auto mb-6 shadow-inner">
+             <BookOpen className="w-8 h-8 text-blue-400" />
+           </div>
 
-              <div className="mb-2">
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  className="w-full px-4 py-3 border border-black rounded-md focus:outline-none"
-                />
-              </div>
-              <div className="block md:hidden font-semibold mt-5">
-                <p>
-                  Already have Account?
-                  <Link
-                    to="/login"
-                    className="text-sm text-gray-500 hover:underline "
-                  >
-                    Sign In
-                  </Link>
-                </p>
-              </div>
-              <button
-                type="submit"
-                className="border-2 mt-5 border-black w-full font-semibold bg-black text-white py-2 rounded-lg hover:bg-white hover:text-black transition"
-              >
-                SIGN UP
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+           <h2 className="text-3xl font-extrabold tracking-tight mb-3">
+             Join ByteBooks
+           </h2>
+           <p className="text-sm text-slate-300 mb-8 leading-relaxed">
+             Create your student or reader account to access the catalog, check out books, and manage reading loans.
+           </p>
 
-export default Register;
+           <div className="pt-4 border-t border-white/10">
+             <p className="text-xs text-slate-400 mb-4">
+               Already have an account?
+             </p>
+             <Link
+               to="/login"
+               className="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl bg-white text-slate-900 font-semibold text-sm hover:bg-slate-100 transition shadow-md cursor-pointer"
+             >
+               Sign In Instead
+             </Link>
+           </div>
+         </div>
+       </div>
+
+       {/* Right Section (Register Form) */}
+       <div className="flex-1 flex items-center justify-center p-6 sm:p-12">
+         <div className="w-full max-w-md">
+           {/* Mobile Logo */}
+           <div className="flex items-center gap-2 mb-8 md:hidden">
+             <div className="p-2 rounded-xl bg-blue-600 text-white">
+               <BookOpen className="w-6 h-6" />
+             </div>
+             <span className="text-xl font-bold text-slate-900 tracking-tight">
+               ByteBooks
+             </span>
+           </div>
+
+           <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-200/80 p-8 sm:p-10">
+             <div className="mb-6">
+               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                 Create Account
+               </h2>
+               <p className="text-sm text-slate-500 mt-1">
+                 Please enter your details to sign up for ByteBooks
+               </p>
+             </div>
+
+             <form onSubmit={handleRegister} className="space-y-4">
+               <div>
+                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                   Full Name
+                 </label>
+                 <div className="relative">
+                   <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                   <input
+                     type="text"
+                     value={name}
+                     required
+                     onChange={(e) => setName(e.target.value)}
+                     placeholder="John Doe"
+                     className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                   />
+                 </div>
+               </div>
+
+               <div>
+                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                   Email Address
+                 </label>
+                 <div className="relative">
+                   <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                   <input
+                     type="email"
+                     value={email}
+                     required
+                     onChange={(e) => setEmail(e.target.value)}
+                     placeholder="name@example.com"
+                     className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                   />
+                 </div>
+               </div>
+
+               <div>
+                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                   Password
+                 </label>
+                 <div className="relative">
+                   <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                   <input
+                     type="password"
+                     value={password}
+                     required
+                     onChange={(e) => setPassword(e.target.value)}
+                     placeholder="••••••••"
+                     className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                   />
+                 </div>
+               </div>
+
+               <button
+                 type="submit"
+                 disabled={loading}
+                 className="w-full mt-2 py-3 px-4 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-semibold rounded-xl text-sm shadow-md shadow-blue-600/20 hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+               >
+                 <span>{loading ? "Creating..." : "Create Account"}</span>
+                 <ArrowRight className="w-4 h-4" />
+               </button>
+             </form>
+
+             <div className="mt-6 pt-6 border-t border-slate-100 text-center md:hidden">
+               <p className="text-xs text-slate-500">
+                 Already have an account?{" "}
+                 <Link
+                   to="/login"
+                   className="font-semibold text-blue-600 hover:underline"
+                 >
+                   Sign In
+                 </Link>
+               </p>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   );
+ };
+
+ export default Register;
