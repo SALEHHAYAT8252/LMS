@@ -2,7 +2,9 @@
 
 <div align="center">
 
-![ByteBooks Banner](https://lms-frontend-rodz.onrender.com)
+![ByteBooks Banner](https://img.shields.io/badge/ByteBooks-Library%20Management%20System-3b82f6?style=for-the-badge&logo=bookstack&logoColor=white)
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Website-2ea44f?style=for-the-badge&logo=render&logoColor=white)](https://lms-frontend-rodz.onrender.com)
 
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-6.3-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
@@ -13,6 +15,8 @@
 [![License](https://img.shields.io/badge/License-ISC-blue.svg?style=flat-square)](LICENSE)
 
 **ByteBooks** is a modern, full-stack web application designed for academic libraries and institutions to streamline book cataloging, circulation tracking, borrower management, and automated email reminders.
+
+🌐 **Live Demo:** [https://lms-frontend-rodz.onrender.com](https://lms-frontend-rodz.onrender.com)
 
 [Key Features](#-key-features) • [Tech Stack](#-tech-stack) • [Project Structure](#-project-structure) • [Getting Started](#-getting-started) • [Environment Variables](#-environment-variables) • [API Documentation](#-api-endpoints)
 
