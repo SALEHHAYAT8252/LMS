@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![ByteBooks Banner](https://img.shields.io/badge/ByteBooks-Library%20Management%20System-3b82f6?style=for-the-badge&logo=bookstack&logoColor=white)
-
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Website-2ea44f?style=for-the-badge&logo=render&logoColor=white)](https://lms-frontend-rodz.onrender.com)
 
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
