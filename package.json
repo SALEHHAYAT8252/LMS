@@ -1,7 +1,14 @@
 {
-  "dependencies": {
-    "base": "^3.0.0",
-    "components": "^0.1.0",
-    "utilities": "^1.0.6"
+  "name": "bytebooks-lms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ByteBooks - Full-Stack Library Management System (MERN)",
+  "scripts": {
+    "client": "npm run dev --prefix client",
+    "server": "npm run dev --prefix server",
+    "client:build": "npm run build --prefix client",
+    "client:install": "npm install --prefix client",
+    "server:install": "npm install --prefix server",
+    "install:all": "npm run client:install && npm run server:install"
   }
 }
